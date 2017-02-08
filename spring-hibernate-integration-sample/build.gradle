@@ -1,0 +1,43 @@
+group 'yitian.learn'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'maven'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+    jcenter()
+}
+ext {
+    springVersion = '4.3.6.RELEASE'
+    aspectjVerison = '1.8.10'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-orm', version: springVersion
+
+    compile group: 'org.glassfish.web', name: 'jstl-impl', version: '1.2'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.6.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1'
+
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: aspectjVerison
+
+}
+
+task writeNewPom {
+    doLast {
+        pom {
+        }.writeTo("$projectDir/pom.xml")
+    }
+}
